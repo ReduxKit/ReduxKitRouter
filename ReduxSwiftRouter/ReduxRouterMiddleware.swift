@@ -52,7 +52,7 @@ func compareRoutes(currentNavigationController: UINavigationController,routeName
                 /**
                 *  Navigate to the specified viewController
                 */
-                goToViewController(navigationController, controller: controller, animated: animated)
+                goToViewController(navigationController, controller: controller, animated: animated, dismissPrevious: dismissPrevious)
 
             }catch{
                 throw RouteErrors.SubRoutesOnNonNavigationController
