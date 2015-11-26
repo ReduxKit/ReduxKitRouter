@@ -79,7 +79,9 @@ func goToViewController(navigationController: UINavigationController, controller
     *  Dismiss Previous ViewController if dissmissPrevious is set
     */
     if(dismissPrevious){
-        navigationController.viewControllers.removeFirst()
+        if(navigationController.viewControllers.count > 1){
+            navigationController.viewControllers.removeFirst()
+        }
     }
 
     
