@@ -11,12 +11,22 @@ import SwiftRedux
 public struct RouteChangeAction: SimpleStandardAction{
     public let meta: Any? = nil
     public let error: Bool = false
-    public let rawPayload: String
-    public let animated: Bool
+    public let rawPayload: Payload
     
-    public init(route: String, animated: Bool=false){
+    public init(route: Payload){
         rawPayload = route
-        self.animated = animated
+    }
+    
+    public struct Payload{
+        public let route: String
+        public let dismissPrevious: Bool
+        public let animated: Bool
+        
+        public init(route: String, dismissPrevious: Bool = false, animated: Bool = false){
+            self.route = route
+            self.dismissPrevious = dismissPrevious
+            self.animated = animated
+        }
     }
 }
 
