@@ -13,16 +13,21 @@ import SwiftRedux
 /**
  *  Application state
  */
-struct AppState: State{
+struct AppState: RoutableState{
+    var router: RouterState
 }
+
 
 
 func applicationReducer(state: State? = nil, action: Action) -> State{
     
-    //let appState = state as! AppState?
+    let appState = state as? AppState
+    
     
     return
-        AppState()
+        AppState(
+            router: appState?.router != nil ? routerStateReducer(appState!.router, action: action) : RouterState(route: ApplicationRouter.RouteNames.login.rawValue)
+        )
 }
 
 /**

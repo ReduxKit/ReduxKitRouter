@@ -12,7 +12,6 @@ func reduxRouterMiddleware(store: MiddlewareApi) -> MiddlewareReturnFunction{
     return {(next: Dispatch) in
         return{(action:Action) in
             
-            
             guard let routeAction = action as? RouteChangeAction else{
                 return next(action)
             }
@@ -34,6 +33,9 @@ func compareRoutes(currentNavigationController: UINavigationController, routeNam
     let router = MainRouter.get()
     var navigationController = currentNavigationController
     
+    /**
+    *  Run if the route is nested
+    */
     if(routeName.componentsSeparatedByString("_").count > 1){
             let routes = routeName.componentsSeparatedByString("_")
             let parentRoute = routeName.stringByReplacingOccurrencesOfString("_" + routes.last!, withString: "")
@@ -46,6 +48,9 @@ func compareRoutes(currentNavigationController: UINavigationController, routeNam
         }
     }
     
+    /**
+    *  Run after the route has been decomposed
+    */
     do{
         let route = try router.getRoute(routeName)
         let controller = route.viewController()
