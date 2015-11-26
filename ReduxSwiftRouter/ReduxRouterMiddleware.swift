@@ -46,7 +46,7 @@ func compareRoutes(currentNavigationController: UINavigationController,routeName
             let parentRoute = try router.getRoute(parentRouteName)
             
             do{
-                try compareRoutes(currentNavigationController, routeName: parentRouteName)
+                try compareRoutes(currentNavigationController, routeName: parentRouteName, dismissPrevious: dismissPrevious)
                 navigationController = parentRoute.navigationController!
                 
                 /**
