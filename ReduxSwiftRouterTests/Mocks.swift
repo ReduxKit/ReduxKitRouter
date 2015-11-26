@@ -57,16 +57,13 @@ public struct ApplicationRouter: Router{
 struct ContainerRoute: Route{
     let name: String = "container"
     var navigationController:UINavigationController? = UINavigationController()
+    let viewController: UIViewController
     
-    private static var _viewController: UIViewController!
-    var viewController: () -> UIViewController = {() -> UIViewController in
-        if(ContainerRoute._viewController == nil){
-            ContainerRoute._viewController = UIViewController()
-        }
-        return ContainerRoute._viewController
+    private var _viewController: UIViewController!
+    
+    init(){
+        self.viewController = UIViewController()
     }
- 
-    
 }
 
 /**
@@ -75,12 +72,12 @@ struct ContainerRoute: Route{
 struct ScannerRoute: Route{
     let name: String = "scanner"
     var navigationController:UINavigationController? = nil
-    private static var _viewController: UIViewController!
-    var viewController: () -> UIViewController = {() -> UIViewController in
-        if(ScannerRoute._viewController == nil){
-            ScannerRoute._viewController = UIViewController()
-        }
-        return ScannerRoute._viewController
+    let viewController: UIViewController
+    
+    private var _viewController: UIViewController!
+    
+    init(){
+        self.viewController = UIViewController()
     }
 }
 
@@ -90,12 +87,12 @@ struct ScannerRoute: Route{
 struct LoginRoute: Route{
     let name: String = "login"
     var navigationController:UINavigationController? = nil
-    private static var _viewController: UIViewController!
-    var viewController: () -> UIViewController = {() -> UIViewController in
-        if(LoginRoute._viewController == nil){
-            LoginRoute._viewController = UIViewController()
-        }
-        return LoginRoute._viewController
+    let viewController: UIViewController
+    
+    private var _viewController: UIViewController!
+    
+    init(){
+        self.viewController = UIViewController()
     }
     
 }

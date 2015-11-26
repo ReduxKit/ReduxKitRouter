@@ -41,7 +41,7 @@ extension Router{
 
 public protocol Route{
     var name: String {get}
-    var viewController: () -> UIViewController {get}
+    var viewController: UIViewController {get}
     var navigationController: UINavigationController? {get}
     var hasChildren: Bool {get}
 }

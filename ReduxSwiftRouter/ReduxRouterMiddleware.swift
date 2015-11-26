@@ -32,7 +32,6 @@ func reduxRouterMiddleware(store: MiddlewareApi) -> MiddlewareReturnFunction{
 func compareRoutes(currentNavigationController: UINavigationController, routeName: String, animated: Bool = false, dismissPrevious: Bool = false) throws -> UIViewController{
     let router = MainRouter.get()
     var navigationController = currentNavigationController
-    
     /**
     *  Run if the route is nested
     */
@@ -53,7 +52,7 @@ func compareRoutes(currentNavigationController: UINavigationController, routeNam
     */
     do{
         let route = try router.getRoute(routeName)
-        let controller = route.viewController()
+        let controller = route.viewController
         
         
         print(navigationController.viewControllers.count)
