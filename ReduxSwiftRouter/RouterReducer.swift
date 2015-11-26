@@ -9,7 +9,7 @@
 import SwiftRedux
 
 
-func routerStateReducer(previousState: RouterState, action: Action) -> RouterState{
+public func routerStateReducer(previousState: RouterState, action: Action) -> RouterState{
     
     // Declare the type of the state
     var state = previousState
