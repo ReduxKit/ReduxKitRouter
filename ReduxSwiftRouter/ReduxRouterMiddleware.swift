@@ -17,7 +17,7 @@ func reduxRouterMiddleware(store: MiddlewareApi) -> MiddlewareReturnFunction{
             }
             
             do{
-                try compareRoutes(MainRouter.get().mainNavigationController, routeName: routeAction.rawPayload, animated: routeAction.animated)
+                try compareRoutes(MainRouter.get().mainNavigationController, routeName: routeAction.rawPayload.route, animated: routeAction.rawPayload.animated, dismissPrevious: routeAction.rawPayload.dismissPrevious)
             }catch{
                 print(error)
             }
@@ -29,7 +29,7 @@ func reduxRouterMiddleware(store: MiddlewareApi) -> MiddlewareReturnFunction{
     }
 }
 
-func compareRoutes(currentNavigationController: UINavigationController, routeName: String, animated: Bool = false) throws -> UIViewController{
+func compareRoutes(currentNavigationController: UINavigationController, routeName: String, animated: Bool = false, dismissPrevious: Bool = false) throws -> UIViewController{
     let router = MainRouter.get()
     var navigationController = currentNavigationController
     
@@ -55,11 +55,19 @@ func compareRoutes(currentNavigationController: UINavigationController, routeNam
         let route = try router.getRoute(routeName)
         let controller = route.viewController()
         
-        if(navigationController.viewControllers.contains(controller)){
-            navigationController.showViewController(controller, sender: nil)
-        }else{
-            navigationController.pushViewController(controller, animated: animated)
+        
+        print(navigationController.viewControllers.count)
+        /**
+        *  Dismiss Previous ViewController if dissmissPrevious is set
+        */
+        if(dismissPrevious){
+            navigationController.viewControllers.removeFirst()
         }
+        print(navigationController.viewControllers.count)
+        /**
+        *  Navigate to the specified viewController
+        */
+        goToViewController(navigationController, controller: controller, animated: animated)
         
         
         return controller
@@ -67,6 +75,15 @@ func compareRoutes(currentNavigationController: UINavigationController, routeNam
         throw RouteErrors.SubRoutesOnNonNavigationController
     }
 
+}
+
+func goToViewController(navigationController: UINavigationController, controller: UIViewController, animated: Bool = false){
+    if(navigationController.viewControllers.contains(controller)){
+        navigationController.showViewController(controller, sender: nil)
+    }else{
+        navigationController.pushViewController(controller, animated: animated)
+    }
+    
 }
 
 

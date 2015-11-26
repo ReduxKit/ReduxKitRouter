@@ -17,7 +17,7 @@ public func routerStateReducer(previousState: RouterState, action: Action) -> Ro
     
     switch action {
     case let action as RouteChangeAction:
-        state.route = action.rawPayload
+        state.route = action.rawPayload.route
         return state
     default:
         return state

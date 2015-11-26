@@ -15,7 +15,12 @@ public protocol RoutableState: State{
 
 public struct RouterState{
     public var route: String!
-    public init(route: String){
+    public var animated: Bool!
+    public var dismissPrevious: Bool!
+    
+    public init(route: String, animated: Bool = false, dismissPrevious: Bool = false){
         self.route = route
+        self.animated = animated
+        self.dismissPrevious = dismissPrevious
     }
 }

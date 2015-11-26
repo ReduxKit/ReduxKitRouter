@@ -40,7 +40,7 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
                 
                 // Act
                 
-                store.dispatch(RouteChangeAction(route: route))
+                store.dispatch(RouteChangeAction(route: RouteChangeAction.Payload(route: route)))
                 
                 // Assert
                 let viewControllers = mainRouter.mainNavigationController.viewControllers
@@ -56,7 +56,7 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
                 
                 // Act
                 
-                store.dispatch(RouteChangeAction(route: route))
+                store.dispatch(RouteChangeAction(route: RouteChangeAction.Payload(route: route)))
                 
                 // Assert
                 let viewControllers = mainRouter.mainNavigationController.viewControllers
@@ -72,14 +72,28 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
                 
                 // Act
                 
-                store.dispatch(RouteChangeAction(route: route))
-                store.dispatch(RouteChangeAction(route: route))
+                store.dispatch(RouteChangeAction(route: RouteChangeAction.Payload(route: route)))
+                store.dispatch(RouteChangeAction(route: RouteChangeAction.Payload(route: route)))
                 // Assert
                 let viewControllers = mainRouter.mainNavigationController.viewControllers
                 expect(1).to(equal(1))
                 expect(viewControllers.count).to(equal(2))
+            }
+            
+            it("Should dismiss the previous viewController"){
+                // Arrange
+                let route1 = ApplicationRouter.RouteNames.container.rawValue
+                let route2 = ApplicationRouter.RouteNames.login.rawValue
+                let mainRouter = MainRouter.get()
                 
+                // Act
                 
+                store.dispatch(RouteChangeAction(route: RouteChangeAction.Payload(route: route1)))
+                store.dispatch(RouteChangeAction(route: RouteChangeAction.Payload(route: route2, dismissPrevious: true)))
+                // Assert
+                let viewControllers = mainRouter.mainNavigationController.viewControllers
+                expect(1).to(equal(1))
+                expect(viewControllers.count).to(equal(1))
             }
         }
     }
