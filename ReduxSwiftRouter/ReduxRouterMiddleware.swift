@@ -29,32 +29,33 @@ func reduxRouterMiddleware(store: MiddlewareApi) -> MiddlewareReturnFunction{
     }
 }
 
-func compareRoutes(currentNavigationController: UINavigationController, routeName: String, animated: Bool = false, dismissPrevious: Bool = false) throws -> UIViewController{
-    let router = MainRouter.get()
-    var navigationController = currentNavigationController
-    /**
-    *  Run if the route is nested
-    */
-    if(routeName.componentsSeparatedByString("_").count > 1){
-            let routes = routeName.componentsSeparatedByString("_")
-            let parentRoute = routeName.stringByReplacingOccurrencesOfString("_" + routes.last!, withString: "")
-        
-        do{
-            let parentController  = try compareRoutes(currentNavigationController, routeName: parentRoute)
-            navigationController = parentController.navigationController!
-        }catch{
-            throw RouteErrors.SubRoutesOnNonNavigationController
-        }
-    }
+func compareRoutes(currentNavigationController: UINavigationController,routeName: String, animated: Bool = false, dismissPrevious: Bool = false) throws -> UIViewController{
     
-    /**
-    *  Run after the route has been decomposed
-    */
     do{
+        let router = MainRouter.get()
+        var navigationController = currentNavigationController
         let route = try router.getRoute(routeName)
         let controller = route.viewController
         
+        /**
+        *  Run if the route is nested
+        */
+        if(routeName.componentsSeparatedByString("_").count > 1){
+            let routes = routeName.componentsSeparatedByString("_")
+            let parentRouteName = routeName.stringByReplacingOccurrencesOfString("_" + routes.last!, withString: "")
+            let parentRoute = try router.getRoute(parentRouteName)
+            
+            do{
+                try compareRoutes(currentNavigationController, routeName: parentRouteName)
+                navigationController = parentRoute.navigationController!
+            }catch{
+                throw RouteErrors.SubRoutesOnNonNavigationController
+            }
+        }
         
+        /**
+        *  Run after the route has been decomposed
+        */
         print(navigationController.viewControllers.count)
         /**
         *  Dismiss Previous ViewController if dissmissPrevious is set
@@ -73,7 +74,7 @@ func compareRoutes(currentNavigationController: UINavigationController, routeNam
     }catch{
         throw RouteErrors.SubRoutesOnNonNavigationController
     }
-
+    
 }
 
 func goToViewController(navigationController: UINavigationController, controller: UIViewController, animated: Bool = false){
