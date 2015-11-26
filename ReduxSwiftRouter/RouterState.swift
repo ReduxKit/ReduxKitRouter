@@ -15,4 +15,7 @@ public protocol RoutableState: State{
 
 public struct RouterState{
     public var route: String!
+    init(route: String){
+        self.route = route
+    }
 }
