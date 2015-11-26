@@ -51,8 +51,3 @@ public extension Route{
 }
 
 public typealias RouteDictionary = [String: Route]
-
-public enum RouteErrors: ErrorType{
-    case SubRoutesOnNonNavigationController
-    case RouteNotFound
-}

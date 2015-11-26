@@ -19,7 +19,7 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
     
     override func spec(){
         
-        //var defaultState: AppState!
+        var defaultState: AppState!
         var store: TypedStore<AppState>!
         
         describe("ReduxRouterMiddlewareSpec"){
@@ -29,7 +29,7 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
                 store = createTypedStore([
                     reduxRouter(ApplicationRouter())
                     ])(createStore)(applicationReducer, nil)
-                //defaultState = store.getState()
+                defaultState = store.getState()
             }
             
             
@@ -40,7 +40,7 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
                 
                 // Act
                 
-                store.dispatch(RouteChangeAction(route: route))
+                //store.dispatch(RouteChangeAction(route: route))
                 
                 // Assert
                 let viewControllers = mainRouter.mainNavigationController.viewControllers
@@ -61,7 +61,7 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
                 // Assert
                 let viewControllers = mainRouter.mainNavigationController.viewControllers
                 expect(1).to(equal(1))
-                expect(viewControllers.count).to(equal(2))
+                expect(viewControllers.count).to(equal(3))
                 
                 
             }
@@ -77,7 +77,7 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
                 // Assert
                 let viewControllers = mainRouter.mainNavigationController.viewControllers
                 expect(1).to(equal(1))
-                expect(viewControllers.count).to(equal(2))
+                expect(viewControllers.count).to(equal(3))
                 
                 
             }
