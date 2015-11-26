@@ -23,24 +23,8 @@ public func reduxRouter(router: Router) -> StoreEnhancer{
             // Initialize the mainRouter
             MainRouter.set(router)
             
-            
-            
             let store = applyMiddlewares([reduxRouterMiddleware])(next)(reducer: reducer, initialState: initialState)
-            
-            // Force error if state is not routable
-            
-            do{
-                guard let state = store.getState() as? RoutableState else{
-                    
-                    throw RouteErrors.AppStateNotImplementingRoutableState
-                }
-                // Initialize route
-                store.dispatch(RouteChangeAction(route: state.router.route))
 
-            }
-            catch{
-                print("is your state implementing the RoutableState protocol?")
-            }
             
             return store
         }

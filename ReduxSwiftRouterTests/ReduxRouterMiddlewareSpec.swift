@@ -40,7 +40,7 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
                 
                 // Act
                 
-                //store.dispatch(RouteChangeAction(route: route))
+                store.dispatch(RouteChangeAction(route: route))
                 
                 // Assert
                 let viewControllers = mainRouter.mainNavigationController.viewControllers
@@ -61,7 +61,7 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
                 // Assert
                 let viewControllers = mainRouter.mainNavigationController.viewControllers
                 expect(1).to(equal(1))
-                expect(viewControllers.count).to(equal(3))
+                expect(viewControllers.count).to(equal(2))
                 
                 
             }
@@ -77,7 +77,7 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
                 // Assert
                 let viewControllers = mainRouter.mainNavigationController.viewControllers
                 expect(1).to(equal(1))
-                expect(viewControllers.count).to(equal(3))
+                expect(viewControllers.count).to(equal(2))
                 
                 
             }
