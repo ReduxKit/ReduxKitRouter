@@ -61,7 +61,7 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
                 // Assert
                 let viewControllers = mainRouter.mainNavigationController.viewControllers
                 expect(1).to(equal(1))
-                expect(viewControllers.count).to(equal(2))
+                expect(viewControllers.count).to(equal(1))
                 
                 
             }
@@ -77,7 +77,7 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
                 // Assert
                 let viewControllers = mainRouter.mainNavigationController.viewControllers
                 expect(1).to(equal(1))
-                expect(viewControllers.count).to(equal(2))
+                expect(viewControllers.count).to(equal(1))
             }
             
             it("Should dismiss the previous viewController"){
