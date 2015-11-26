@@ -48,26 +48,23 @@ func compareRoutes(currentNavigationController: UINavigationController,routeName
             do{
                 try compareRoutes(currentNavigationController, routeName: parentRouteName)
                 navigationController = parentRoute.navigationController!
+                
+                /**
+                *  Navigate to the specified viewController
+                */
+                goToViewController(navigationController, controller: controller, animated: animated)
+
             }catch{
                 throw RouteErrors.SubRoutesOnNonNavigationController
             }
+        }else{
+            /**
+            *  Navigate to the specified viewController
+            */
+            goToViewController(navigationController, controller: controller, animated: animated, dismissPrevious: dismissPrevious)
         }
         
-        /**
-        *  Run after the route has been decomposed
-        */
-        print(navigationController.viewControllers.count)
-        /**
-        *  Dismiss Previous ViewController if dissmissPrevious is set
-        */
-        if(dismissPrevious){
-            navigationController.viewControllers.removeFirst()
-        }
-        print(navigationController.viewControllers.count)
-        /**
-        *  Navigate to the specified viewController
-        */
-        goToViewController(navigationController, controller: controller, animated: animated)
+        
         
         
         return controller
@@ -77,7 +74,15 @@ func compareRoutes(currentNavigationController: UINavigationController,routeName
     
 }
 
-func goToViewController(navigationController: UINavigationController, controller: UIViewController, animated: Bool = false){
+func goToViewController(navigationController: UINavigationController, controller: UIViewController, animated: Bool = false, dismissPrevious: Bool = false){
+    /**
+    *  Dismiss Previous ViewController if dissmissPrevious is set
+    */
+    if(dismissPrevious){
+        navigationController.viewControllers.removeFirst()
+    }
+
+    
     if(navigationController.viewControllers.contains(controller)){
         navigationController.showViewController(controller, sender: nil)
     }else{
