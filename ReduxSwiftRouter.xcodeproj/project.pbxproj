@@ -13,6 +13,7 @@
 		BC5672611C071CB900D43CE4 /* RouterReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC56725E1C07191B00D43CE4 /* RouterReducer.swift */; };
 		BC5672631C07201400D43CE4 /* RouteErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5672621C07201400D43CE4 /* RouteErrors.swift */; };
 		BC5672641C07234A00D43CE4 /* RouteErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5672621C07201400D43CE4 /* RouteErrors.swift */; };
+		BC92D31B1C089A1000AA5103 /* RouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC92D31A1C089A1000AA5103 /* RouteViewController.swift */; };
 		BCA317601C03621C00C614A2 /* ReduxSwiftRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = BCA3175F1C03621C00C614A2 /* ReduxSwiftRouter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCA317671C03621C00C614A2 /* ReduxSwiftRouter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCA3175C1C03621C00C614A2 /* ReduxSwiftRouter.framework */; };
 		BCA3176C1C03621C00C614A2 /* ReduxSwiftRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA3176B1C03621C00C614A2 /* ReduxSwiftRouterTests.swift */; };
@@ -54,6 +55,7 @@
 		BC56725C1C07153300D43CE4 /* RouterState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouterState.swift; sourceTree = "<group>"; };
 		BC56725E1C07191B00D43CE4 /* RouterReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouterReducer.swift; sourceTree = "<group>"; };
 		BC5672621C07201400D43CE4 /* RouteErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteErrors.swift; sourceTree = "<group>"; };
+		BC92D31A1C089A1000AA5103 /* RouteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteViewController.swift; sourceTree = "<group>"; };
 		BCA3175C1C03621C00C614A2 /* ReduxSwiftRouter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ReduxSwiftRouter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCA3175F1C03621C00C614A2 /* ReduxSwiftRouter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReduxSwiftRouter.h; sourceTree = "<group>"; };
 		BCA317611C03621C00C614A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				BC56725C1C07153300D43CE4 /* RouterState.swift */,
 				BC56725E1C07191B00D43CE4 /* RouterReducer.swift */,
 				BC5672621C07201400D43CE4 /* RouteErrors.swift */,
+				BC92D31A1C089A1000AA5103 /* RouteViewController.swift */,
 			);
 			path = ReduxSwiftRouter;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 			files = (
 				BCA317911C03A14600C614A2 /* ReduxRouter.swift in Sources */,
 				BCA317941C03A2D400C614A2 /* Route.swift in Sources */,
+				BC92D31B1C089A1000AA5103 /* RouteViewController.swift in Sources */,
 				BCA317791C0392E500C614A2 /* RouteChangeAction.swift in Sources */,
 				BCA3177C1C0395DC00C614A2 /* ReduxRouterMiddleware.swift in Sources */,
 				BC56725D1C07153300D43CE4 /* RouterState.swift in Sources */,

@@ -41,9 +41,12 @@ extension Router{
 
 public protocol Route{
     var name: String {get}
-    var viewController: UIViewController {get}
+    
     var navigationController: UINavigationController? {get}
     var hasChildren: Bool {get}
+    
+    // Factory for creating a new UIViewController
+    func getViewController() -> UIViewController
 }
 
 public extension Route{
