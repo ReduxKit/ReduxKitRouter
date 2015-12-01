@@ -8,7 +8,11 @@
 
 import SwiftRedux
 
-public struct RouteChangeAction: SimpleStandardAction{
+
+public protocol RouteAction: SimpleStandardAction{
+}
+
+public struct RouteChangeAction: RouteAction{
     public let meta: Any? = nil
     public let error: Bool = false
     public let rawPayload: Payload
@@ -30,8 +34,14 @@ public struct RouteChangeAction: SimpleStandardAction{
     }
 }
 
-public struct RouteChangeErrorAction: SimpleStandardAction{
+public struct RouteChangeErrorAction: RouteAction{
     public let meta: Any? = nil
     public let error: Bool = true
     public let rawPayload: String
+}
+
+public struct RouteBackAction: RouteAction{
+    public let meta: Any? = nil
+    public let error: Bool = false
+    public let rawPayload: Any? = nil
 }
