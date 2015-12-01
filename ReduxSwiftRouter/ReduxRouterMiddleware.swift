@@ -49,7 +49,6 @@ func compareRoutes(currentNavigationController: UINavigationController, routeNam
         var navigationController = currentNavigationController
         let route = try router.getRoute(routeName)
         let controller = route.getViewController()
-        let routeName = route.name
         
         /**
         *  Run if the route is nested
