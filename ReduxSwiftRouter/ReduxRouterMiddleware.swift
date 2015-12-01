@@ -36,21 +36,22 @@ func navigateToRoute(routeAction: RouteChangeAction) throws{
     let router = MainRouter.get()
     
     /// Fetch the next route from the router
-    let nextRoute = try router.getRoute(routeAction.rawPayload.route)
+    let routeName = routeAction.rawPayload.route
     
     /// Fetch the main navigation controller from the router
     let navigationController = MainRouter.get().mainNavigationController
  
-    try compareRoutes(navigationController, nextRoute: nextRoute, animated: routeAction.rawPayload.animated, dismissPrevious: routeAction.rawPayload.dismissPrevious)
+    try compareRoutes(navigationController, routeName: routeName, animated: routeAction.rawPayload.animated, dismissPrevious: routeAction.rawPayload.dismissPrevious)
 }
 
-func compareRoutes(currentNavigationController: UINavigationController, nextRoute: Route, animated: Bool = false, dismissPrevious: Bool = false) throws -> UIViewController{
+func compareRoutes(currentNavigationController: UINavigationController, routeName: String, animated: Bool = false, dismissPrevious: Bool = false) throws -> UIViewController{
     
     do{
         let router = MainRouter.get()
         var navigationController = currentNavigationController
-        let controller = nextRoute.getViewController()
-        let routeName = nextRoute.name
+        let route = try router.getRoute(routeName)
+        let controller = route.getViewController()
+        let routeName = route.name
         
         /**
         *  Run if the route is nested
@@ -61,7 +62,7 @@ func compareRoutes(currentNavigationController: UINavigationController, nextRout
             let parentRoute = try router.getRoute(parentRouteName)
             
             do{
-                try compareRoutes(currentNavigationController, nextRoute : parentRoute, animated: animated, dismissPrevious: dismissPrevious)
+                try compareRoutes(currentNavigationController, routeName: parentRouteName, animated: animated, dismissPrevious: dismissPrevious)
                 navigationController = parentRoute.navigationController!
                 
                 /**
