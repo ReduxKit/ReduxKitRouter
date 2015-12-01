@@ -31,9 +31,7 @@ func reduxRouterMiddleware(store: MiddlewareApi) -> MiddlewareReturnFunction{
 }
 
 func navigateToRoute(routeAction: RouteChangeAction) throws{
-    
-    /// Get the applications mainRouter from the MainRouter sharedInstance
-    let router = MainRouter.get()
+
     
     /// Fetch the next route from the router
     let routeName = routeAction.rawPayload.route

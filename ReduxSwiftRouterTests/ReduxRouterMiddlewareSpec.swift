@@ -19,7 +19,7 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
     
     override func spec(){
         
-        var defaultState: AppState!
+        //var defaultState: AppState!
         var store: TypedStore<AppState>!
         
         describe("ReduxRouterMiddlewareSpec"){
@@ -29,7 +29,7 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
                 store = createTypedStore([
                     reduxRouter(ApplicationRouter())
                     ])(createStore)(applicationReducer, nil)
-                defaultState = store.getState()
+                //defaultState = store.getState()
             }
             
             
