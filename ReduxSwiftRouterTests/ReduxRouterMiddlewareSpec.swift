@@ -35,7 +35,7 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
             
             it("Should push only one viewController on the stack"){
                 // Arrange
-                let route = ApplicationRouter.RouteNames.container.rawValue
+                let route = ApplicationRouter.Routes.container.rawValue
                 let mainRouter = MainRouter.get()
                 
                 // Act
@@ -51,7 +51,7 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
             }
             it("Should push both parent and child viewcontroller on the stack"){
                 // Arrange
-                let route = ApplicationRouter.RouteNames.container_scanner.rawValue
+                let route = ApplicationRouter.Routes.container_scanner.rawValue
                 let mainRouter = MainRouter.get()
                 
                 // Act
@@ -67,8 +67,8 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
             }
             it("Should push two viewControllers on the stack"){
                 // Arrange
-                let route1 = ApplicationRouter.RouteNames.container.rawValue
-                let route2 = ApplicationRouter.RouteNames.login.rawValue
+                let route1 = ApplicationRouter.Routes.container.rawValue
+                let route2 = ApplicationRouter.Routes.login.rawValue
                 let mainRouter = MainRouter.get()
                 
                 // Act
@@ -86,8 +86,8 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
             }
             it("Should push two viewControllers on the stack"){
                 // Arrange
-                let route1 = ApplicationRouter.RouteNames.container_scanner.rawValue
-                let route2 = ApplicationRouter.RouteNames.login.rawValue
+                let route1 = ApplicationRouter.Routes.container_scanner.rawValue
+                let route2 = ApplicationRouter.Routes.login.rawValue
                 let mainRouter = MainRouter.get()
                 
                 // Act
@@ -107,8 +107,8 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
             
             it("Should dismiss all previous viewControllers"){
                 // Arrange
-                let route1 = ApplicationRouter.RouteNames.container.rawValue
-                let route2 = ApplicationRouter.RouteNames.login.rawValue
+                let route1 = ApplicationRouter.Routes.container.rawValue
+                let route2 = ApplicationRouter.Routes.login.rawValue
                 let mainRouter = MainRouter.get()
                 
                 // Act
