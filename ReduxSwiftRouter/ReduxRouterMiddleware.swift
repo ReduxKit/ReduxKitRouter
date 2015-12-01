@@ -62,10 +62,10 @@ func navigateToRoute(store: MiddlewareApi, action: RouteChangeAction) throws{
 func compareRoutes(currentNavigationController: UINavigationController, routeName: String, previousRouteName: String, animated: Bool = false, dismissPrevious: Bool = false) throws -> UIViewController{
     
     do{
-        let router = MainRouter.get()
+        var router = MainRouter.get()
         var navigationController = currentNavigationController
         let route = try router.getRoute(routeName)
-        let controller = route.getViewController()
+        let controller = route.viewController
         
         /**
         *  Run if the route is nested
@@ -79,7 +79,7 @@ func compareRoutes(currentNavigationController: UINavigationController, routeNam
             let parentRoutes = previousRouteName.componentsSeparatedByString("_")
             let previousParentName = previousRouteName.stringByReplacingOccurrencesOfString("_" + parentRoutes.last!, withString: "")
             
-            let parentRoute = try router.getRoute(parentRouteName)
+            let parentRoute = router.activeRoute.name == parentRouteName ? router.activeRoute : try router.getRoute(parentRouteName)
             
             do{
                 
@@ -89,8 +89,7 @@ func compareRoutes(currentNavigationController: UINavigationController, routeNam
                 *  Navigate to the specified parent ViewController
                 */
                 goToViewController(navigationController, controller: controller, animated: animated)
-                print(previousParentName)
-                print(parentRouteName)
+   
                 if(previousParentName != parentRouteName){
                     try compareRoutes(currentNavigationController, routeName: parentRouteName, previousRouteName: previousParentName, animated: animated, dismissPrevious: dismissPrevious)
                 }
@@ -100,6 +99,12 @@ func compareRoutes(currentNavigationController: UINavigationController, routeNam
                 throw RouteErrors.SubRoutesOnNonNavigationController
             }
         }else{
+            // update the currently active route
+            router.activeRoute = route
+            
+            // Update the router
+            MainRouter.set(router)
+            
             /**
             *  Navigate to the specified viewController
             */
@@ -115,26 +120,21 @@ func compareRoutes(currentNavigationController: UINavigationController, routeNam
 
 func goToViewController(navigationController: UINavigationController, controller: UIViewController, animated: Bool = false, dismissPrevious: Bool = false){
     
-    var viewControllers = navigationController.viewControllers
-    print(viewControllers.count)
-    
-    
     /**
     *  Dismiss Previous ViewController if dissmissPrevious is set
     */
     if(dismissPrevious){
         //navigationController.viewControllers = navigationController.viewControllers.reverse()
+        navigationController.viewControllers.forEach{viewController in
+            viewController.view.removeFromSuperview()
+            viewController.removeFromParentViewController()
+        }
         navigationController.setViewControllers([controller], animated: animated)
     }else{
         
         // Show the view controller
         navigationController.pushViewController(controller, animated: animated)
     }
-    
-    
-    
-    viewControllers = navigationController.viewControllers
-    print(viewControllers.count)
 }
 
 

@@ -24,7 +24,7 @@ func applicationReducer(state: State? = nil, action: Action) -> State{
     let appState = state as? AppState
     
     let temp = AppState(
-        router: appState?.router != nil ? routerStateReducer(appState!.router, action: action) : RouterState(route: ApplicationRouter.RouteNames.login.rawValue)
+        router: appState?.router != nil ? routerStateReducer(appState!.router, action: action) : RouterState(route: ApplicationRouter.Routes.login.rawValue)
     )
     
     return temp
@@ -36,15 +36,26 @@ func applicationReducer(state: State? = nil, action: Action) -> State{
  */
 public struct ApplicationRouter: Router{
     public var mainNavigationController: UINavigationController = UINavigationController()
-    public static let delimiter: String = "."
-    public var routes: RouteDictionary = [
-        RouteNames.container.rawValue: ContainerRoute(),
-        RouteNames.container_scanner.rawValue: ScannerRoute(),
-        RouteNames.login.rawValue :LoginRoute()
-    ]
+    public var activeRoute: Route = LoginRoute.make()
+
     
+    public func getRoute(route: String) throws -> Route {
+        
+        guard let routeEnum = Routes(rawValue: route) else{
+            throw RouteErrors.RouteNotFound
+        }
+        
+        switch routeEnum{
+            case Routes.container:
+                return ContainerRoute.make()
+            case .container_scanner:
+                return ScannerRoute.make()
+            case .login:
+                return LoginRoute.make()
+        }
+    }
     
-    public enum RouteNames:String{
+    public enum Routes: String{
         case container
         case container_scanner
         case login
@@ -57,10 +68,11 @@ public struct ApplicationRouter: Router{
  */
 struct ContainerRoute: Route{
     let name: String = "container"
-    var navigationController:UINavigationController? = UINavigationController()
+    let navigationController:UINavigationController?
+    let viewController: UIViewController
     
-    func getViewController() -> UIViewController {
-        return ContainerViewController()
+    static func make() -> Route {
+        return ContainerRoute(navigationController: UINavigationController(), viewController: ContainerViewController())
     }
 }
 
@@ -69,9 +81,14 @@ struct ContainerRoute: Route{
  */
 struct ScannerRoute: Route{
     let name: String = "scanner"
-    var navigationController:UINavigationController? = nil
-    func getViewController() -> UIViewController {
-        return UIViewController()
+    let navigationController:UINavigationController? = nil
+    let viewController: UIViewController
+    
+    init(viewController: UIViewController){
+        self.viewController = viewController
+    }
+    static func make() -> Route {
+        return ScannerRoute(viewController: UIViewController())
     }
 }
 
@@ -80,9 +97,15 @@ struct ScannerRoute: Route{
  */
 struct LoginRoute: Route{
     let name: String = "login"
-    var navigationController:UINavigationController? = nil
-    func getViewController() -> UIViewController {
-        return LoginViewController()
+    let navigationController:UINavigationController? = nil
+    let viewController: UIViewController
+    
+    init(viewController: UIViewController){
+        self.viewController = viewController
+    }
+    
+    static func make() -> Route {
+        return LoginRoute(viewController: LoginViewController())
     }
 }
 

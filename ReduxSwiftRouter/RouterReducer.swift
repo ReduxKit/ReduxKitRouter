@@ -14,7 +14,6 @@ public func routerStateReducer(previousState: RouterState, action: Action) -> Ro
     // Declare the type of the state
     var state = previousState
     
-    
     switch action {
     case let action as RouteChangeAction:
         state.route = action.rawPayload.route
