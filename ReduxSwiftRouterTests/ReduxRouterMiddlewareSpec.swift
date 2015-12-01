@@ -84,20 +84,26 @@ class ReduxRouterMiddlewareSpec: QuickSpec {
                 expect(viewControllers.first is ContainerViewController).to(equal(true))
                 
             }
-            it("Should push the same viewController twice"){
+            it("Should push two viewControllers on the stack"){
                 // Arrange
-                let route = ApplicationRouter.RouteNames.container_scanner.rawValue
+                let route1 = ApplicationRouter.RouteNames.container_scanner.rawValue
+                let route2 = ApplicationRouter.RouteNames.login.rawValue
                 let mainRouter = MainRouter.get()
                 
                 // Act
                 
-                store.dispatch(RouteChangeAction(route: RouteChangeAction.Payload(route: route)))
-                store.dispatch(RouteChangeAction(route: RouteChangeAction.Payload(route: route)))
+                store.dispatch(RouteChangeAction(route: RouteChangeAction.Payload(route: route1)))
+                store.dispatch(RouteChangeAction(route: RouteChangeAction.Payload(route: route2)))
+                
+                
                 // Assert
                 let viewControllers = mainRouter.mainNavigationController.viewControllers
-                
                 expect(viewControllers.count).to(equal(2))
+                expect(viewControllers.last is LoginViewController).to(equal(true))
+                expect(viewControllers.first is ContainerViewController).to(equal(true))
+                
             }
+
             
             it("Should dismiss all previous viewControllers"){
                 // Arrange

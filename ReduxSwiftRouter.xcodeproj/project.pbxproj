@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC231BCD1C0DA9C00091E626 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC231BCC1C0DA9C00091E626 /* UIKit.framework */; };
 		BC56725D1C07153300D43CE4 /* RouterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC56725C1C07153300D43CE4 /* RouterState.swift */; };
 		BC56725F1C07191B00D43CE4 /* RouterReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC56725E1C07191B00D43CE4 /* RouterReducer.swift */; };
 		BC5672601C071CB600D43CE4 /* RouterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC56725C1C07153300D43CE4 /* RouterState.swift */; };
@@ -18,8 +19,8 @@
 		BCA317671C03621C00C614A2 /* ReduxSwiftRouter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCA3175C1C03621C00C614A2 /* ReduxSwiftRouter.framework */; };
 		BCA3176C1C03621C00C614A2 /* ReduxSwiftRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA3176B1C03621C00C614A2 /* ReduxSwiftRouterTests.swift */; };
 		BCA317771C038D9F00C614A2 /* cartfile in Resources */ = {isa = PBXBuildFile; fileRef = BCA317761C038D9F00C614A2 /* cartfile */; };
-		BCA317791C0392E500C614A2 /* RouteChangeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA317781C0392E500C614A2 /* RouteChangeAction.swift */; };
-		BCA3177A1C0392E500C614A2 /* RouteChangeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA317781C0392E500C614A2 /* RouteChangeAction.swift */; };
+		BCA317791C0392E500C614A2 /* RouteActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA317781C0392E500C614A2 /* RouteActions.swift */; };
+		BCA3177A1C0392E500C614A2 /* RouteActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA317781C0392E500C614A2 /* RouteActions.swift */; };
 		BCA3177C1C0395DC00C614A2 /* ReduxRouterMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA3177B1C0395DC00C614A2 /* ReduxRouterMiddleware.swift */; };
 		BCA3177D1C0395DC00C614A2 /* ReduxRouterMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA3177B1C0395DC00C614A2 /* ReduxRouterMiddleware.swift */; };
 		BCA317821C03960300C614A2 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCA3177E1C03960300C614A2 /* RxBlocking.framework */; };
@@ -52,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BC231BCC1C0DA9C00091E626 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BC56725C1C07153300D43CE4 /* RouterState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouterState.swift; sourceTree = "<group>"; };
 		BC56725E1C07191B00D43CE4 /* RouterReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouterReducer.swift; sourceTree = "<group>"; };
 		BC5672621C07201400D43CE4 /* RouteErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteErrors.swift; sourceTree = "<group>"; };
@@ -63,7 +65,7 @@
 		BCA3176B1C03621C00C614A2 /* ReduxSwiftRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxSwiftRouterTests.swift; sourceTree = "<group>"; };
 		BCA3176D1C03621C00C614A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCA317761C038D9F00C614A2 /* cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cartfile; sourceTree = "<group>"; };
-		BCA317781C0392E500C614A2 /* RouteChangeAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteChangeAction.swift; sourceTree = "<group>"; };
+		BCA317781C0392E500C614A2 /* RouteActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteActions.swift; sourceTree = "<group>"; };
 		BCA3177B1C0395DC00C614A2 /* ReduxRouterMiddleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReduxRouterMiddleware.swift; sourceTree = "<group>"; };
 		BCA3177E1C03960300C614A2 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
 		BCA3177F1C03960300C614A2 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC231BCD1C0DA9C00091E626 /* UIKit.framework in Frameworks */,
 				BCA317821C03960300C614A2 /* RxBlocking.framework in Frameworks */,
 				BCA317831C03960300C614A2 /* RxCocoa.framework in Frameworks */,
 				BCA317841C03960300C614A2 /* RxSwift.framework in Frameworks */,
@@ -110,6 +113,7 @@
 		BCA317521C03621C00C614A2 = {
 			isa = PBXGroup;
 			children = (
+				BC231BCC1C0DA9C00091E626 /* UIKit.framework */,
 				BCA3178A1C03961A00C614A2 /* Nimble.framework */,
 				BCA3178B1C03961A00C614A2 /* Quick.framework */,
 				BCA3177E1C03960300C614A2 /* RxBlocking.framework */,
@@ -137,7 +141,7 @@
 			children = (
 				BCA3175F1C03621C00C614A2 /* ReduxSwiftRouter.h */,
 				BCA317611C03621C00C614A2 /* Info.plist */,
-				BCA317781C0392E500C614A2 /* RouteChangeAction.swift */,
+				BCA317781C0392E500C614A2 /* RouteActions.swift */,
 				BCA3177B1C0395DC00C614A2 /* ReduxRouterMiddleware.swift */,
 				BCA317901C03A14600C614A2 /* ReduxRouter.swift */,
 				BCA317931C03A2D400C614A2 /* Route.swift */,
@@ -315,7 +319,7 @@
 				BCA317911C03A14600C614A2 /* ReduxRouter.swift in Sources */,
 				BCA317941C03A2D400C614A2 /* Route.swift in Sources */,
 				BC92D31B1C089A1000AA5103 /* RouteViewController.swift in Sources */,
-				BCA317791C0392E500C614A2 /* RouteChangeAction.swift in Sources */,
+				BCA317791C0392E500C614A2 /* RouteActions.swift in Sources */,
 				BCA3177C1C0395DC00C614A2 /* ReduxRouterMiddleware.swift in Sources */,
 				BC56725D1C07153300D43CE4 /* RouterState.swift in Sources */,
 				BC5672631C07201400D43CE4 /* RouteErrors.swift in Sources */,
@@ -336,7 +340,7 @@
 				BCCDE6361C0494980042998E /* ReduxRouterMiddlewareSpec.swift in Sources */,
 				BC5672601C071CB600D43CE4 /* RouterState.swift in Sources */,
 				BCCDE6341C045BC70042998E /* RouteSpec.swift in Sources */,
-				BCA3177A1C0392E500C614A2 /* RouteChangeAction.swift in Sources */,
+				BCA3177A1C0392E500C614A2 /* RouteActions.swift in Sources */,
 				BC5672611C071CB900D43CE4 /* RouterReducer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

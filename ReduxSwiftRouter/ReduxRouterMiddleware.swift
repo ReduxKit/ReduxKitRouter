@@ -12,37 +12,54 @@ func reduxRouterMiddleware(store: MiddlewareApi) -> MiddlewareReturnFunction{
     return {(next: Dispatch) in
         return{(action:Action) in
             
-            guard let routeAction = action as? RouteChangeAction else{
+            
+            switch action{
+            case let action as RouteChangeAction:
+                
+                do{
+                    try navigateToRoute(store, action: action)
+                }catch{
+                    print(error)
+                }
+                
+                return next(action)
+            case let action as RouteBackAction:
+                
+                do{
+                    try goBackToPreviousRoute(store, action: action)
+                }catch{
+                    print(error)
+                }
+                
+                return next(action)
+            default:
                 return next(action)
             }
-            
-            do{
-                
-                try navigateToRoute(routeAction)
-            }catch{
-                print(error)
-            }
-            
-            return next(routeAction)
-            
-            
         }
     }
 }
 
-func navigateToRoute(routeAction: RouteChangeAction) throws{
+func goBackToPreviousRoute(store: MiddlewareApi, action: RouteBackAction) throws{
+    /**
+    Not implemented
+    */
+}
+
+func navigateToRoute(store: MiddlewareApi, action: RouteChangeAction) throws{
+    let routerState = store.getState() as! RoutableState
+    let previousRoute = routerState.router.route
 
     
     /// Fetch the next route from the router
-    let routeName = routeAction.rawPayload.route
+    let routeName = action.rawPayload.route
     
     /// Fetch the main navigation controller from the router
     let navigationController = MainRouter.get().mainNavigationController
- 
-    try compareRoutes(navigationController, routeName: routeName, animated: routeAction.rawPayload.animated, dismissPrevious: routeAction.rawPayload.dismissPrevious)
+    
+    try compareRoutes(navigationController, routeName: routeName, previousRouteName: previousRoute, animated: action.rawPayload.animated, dismissPrevious: action.rawPayload.dismissPrevious)
 }
 
-func compareRoutes(currentNavigationController: UINavigationController, routeName: String, animated: Bool = false, dismissPrevious: Bool = false) throws -> UIViewController{
+func compareRoutes(currentNavigationController: UINavigationController, routeName: String, previousRouteName: String, animated: Bool = false, dismissPrevious: Bool = false) throws -> UIViewController{
     
     do{
         let router = MainRouter.get()
@@ -54,19 +71,31 @@ func compareRoutes(currentNavigationController: UINavigationController, routeNam
         *  Run if the route is nested
         */
         if(routeName.componentsSeparatedByString("_").count > 1){
+            /// Get the routeName of the parent
             let routes = routeName.componentsSeparatedByString("_")
             let parentRouteName = routeName.stringByReplacingOccurrencesOfString("_" + routes.last!, withString: "")
+            
+            /// Get the previous parent route
+            let parentRoutes = previousRouteName.componentsSeparatedByString("_")
+            let previousParentName = previousRouteName.stringByReplacingOccurrencesOfString("_" + parentRoutes.last!, withString: "")
+            
             let parentRoute = try router.getRoute(parentRouteName)
             
             do{
-                try compareRoutes(currentNavigationController, routeName: parentRouteName, animated: animated, dismissPrevious: dismissPrevious)
+                
                 navigationController = parentRoute.navigationController!
                 
                 /**
-                *  Navigate to the specified viewController
+                *  Navigate to the specified parent ViewController
                 */
-                goToViewController(navigationController, controller: controller, animated: animated, dismissPrevious: dismissPrevious)
-
+                goToViewController(navigationController, controller: controller, animated: animated)
+                print(previousParentName)
+                print(parentRouteName)
+                if(previousParentName != parentRouteName){
+                    try compareRoutes(currentNavigationController, routeName: parentRouteName, previousRouteName: previousParentName, animated: animated, dismissPrevious: dismissPrevious)
+                }
+                
+                
             }catch{
                 throw RouteErrors.SubRoutesOnNonNavigationController
             }
@@ -76,9 +105,6 @@ func compareRoutes(currentNavigationController: UINavigationController, routeNam
             */
             goToViewController(navigationController, controller: controller, animated: animated, dismissPrevious: dismissPrevious)
         }
-        
-        
-        
         
         return controller
     }catch{
@@ -92,16 +118,20 @@ func goToViewController(navigationController: UINavigationController, controller
     var viewControllers = navigationController.viewControllers
     print(viewControllers.count)
     
-    // Show the view controller
-    navigationController.pushViewController(controller, animated: animated)
     
     /**
     *  Dismiss Previous ViewController if dissmissPrevious is set
     */
     if(dismissPrevious){
-        navigationController.viewControllers = navigationController.viewControllers.reverse()
-        navigationController.popToViewController(controller, animated: false)
+        //navigationController.viewControllers = navigationController.viewControllers.reverse()
+        navigationController.setViewControllers([controller], animated: animated)
+    }else{
+        
+        // Show the view controller
+        navigationController.pushViewController(controller, animated: animated)
     }
+    
+    
     
     viewControllers = navigationController.viewControllers
     print(viewControllers.count)

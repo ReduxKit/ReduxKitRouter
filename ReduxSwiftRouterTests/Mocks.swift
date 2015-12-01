@@ -23,11 +23,12 @@ func applicationReducer(state: State? = nil, action: Action) -> State{
     
     let appState = state as? AppState
     
+    let temp = AppState(
+        router: appState?.router != nil ? routerStateReducer(appState!.router, action: action) : RouterState(route: ApplicationRouter.RouteNames.login.rawValue)
+    )
     
-    return
-        AppState(
-            router: appState?.router != nil ? routerStateReducer(appState!.router, action: action) : RouterState(route: ApplicationRouter.RouteNames.login.rawValue)
-        )
+    return temp
+    
 }
 
 /**
