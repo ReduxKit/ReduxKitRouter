@@ -17,7 +17,7 @@ func reduxRouterMiddleware(store: MiddlewareApi) -> MiddlewareReturnFunction{
             case let action as RouteChangeAction:
                 
                 do{
-                    try navigateToRoute(store, action: action)
+                    try handleRouteChangeAction(store, action: action)
                 }catch{
                     print(error)
                 }
@@ -26,7 +26,7 @@ func reduxRouterMiddleware(store: MiddlewareApi) -> MiddlewareReturnFunction{
             case let action as RouteBackAction:
                 
                 do{
-                    try goBackToPreviousRoute(store, action: action)
+                    try handleRouteBackAction(store, action: action)
                 }catch{
                     print(error)
                 }
@@ -39,32 +39,59 @@ func reduxRouterMiddleware(store: MiddlewareApi) -> MiddlewareReturnFunction{
     }
 }
 
-func goBackToPreviousRoute(store: MiddlewareApi, action: RouteBackAction) throws{
+/**
+ Will handle RouteBackAction
+ 
+ - parameter store:  <#store description#>
+ - parameter action: <#action description#>
+ */
+func handleRouteBackAction(store: MiddlewareApi, action: RouteBackAction) throws{
     /**
     Not implemented
     */
 }
 
-func navigateToRoute(store: MiddlewareApi, action: RouteChangeAction) throws{
+/**
+ Will handle RouteChangeAction
+ 
+ - parameter store:  <#store description#>
+ - parameter action: <#action description#>
+ */
+func handleRouteChangeAction(store: MiddlewareApi, action: RouteChangeAction) throws{
     let routerState = store.getState() as! RoutableState
     let previousRoute = routerState.router.route
-
+    
+    // Fetch the mainRouter
+    let router = MainRouter.get()
     
     /// Fetch the next route from the router
     let routeName = action.rawPayload.route
     
+    // Fetch a new instance of the route
+    let route = try router.getRoute(routeName)
+    
     /// Fetch the main navigation controller from the router
     let navigationController = MainRouter.get().mainNavigationController
     
-    try compareRoutes(navigationController, routeName: routeName, previousRouteName: previousRoute, animated: action.rawPayload.animated, dismissPrevious: action.rawPayload.dismissPrevious)
+    try navigateToRoute(navigationController, routeName: routeName, previousRouteName: previousRoute, route: route,  animated: action.rawPayload.animated, dismissPrevious: action.rawPayload.dismissPrevious)
 }
 
-func compareRoutes(currentNavigationController: UINavigationController, routeName: String, previousRouteName: String, animated: Bool = false, dismissPrevious: Bool = false) throws -> UIViewController{
+/**
+ This function will transition to the specified route. It will deduce whether to transition on the mainNavigationController or whether the transition should happen on a child viewController on a nested route.
+ 
+ - parameter currentNavigationController: The currentNavigationController
+ - parameter routeName:                   The full name of the route to transition to.
+ - parameter previousRouteName:           The name of the previous route
+ - parameter route:                       The route that is to be navigated to
+ - parameter animated:                    Whether to animate
+ - parameter dismissPrevious:             Whether to dismiss previous routes
+ 
+ - throws: Can throw RouteErrors.SubRoutesOnNavigationController
+ */
+func navigateToRoute(currentNavigationController: UINavigationController, routeName: String,  previousRouteName: String, route: Route, animated: Bool = false, dismissPrevious: Bool = false) throws {
     
     do{
         var router = MainRouter.get()
-        var navigationController = currentNavigationController
-        let route = try router.getRoute(routeName)
         let controller = route.viewController
         
         /**
@@ -76,22 +103,30 @@ func compareRoutes(currentNavigationController: UINavigationController, routeNam
             let parentRouteName = routeName.stringByReplacingOccurrencesOfString("_" + routes.last!, withString: "")
             
             /// Get the previous parent route
-            let parentRoutes = previousRouteName.componentsSeparatedByString("_")
-            let previousParentName = previousRouteName.stringByReplacingOccurrencesOfString("_" + parentRoutes.last!, withString: "")
+            let previousRoutes = previousRouteName.componentsSeparatedByString("_")
+            let previousParentName = previousRouteName.stringByReplacingOccurrencesOfString("_" + previousRoutes.last!, withString: "")
             
+            /// If the active route is equal to the parentRouteName of the next route, return the current activeRoute instance. Else fetch a new instance
             let parentRoute = router.activeRoute.name == parentRouteName ? router.activeRoute : try router.getRoute(parentRouteName)
             
             do{
-                
-                navigationController = parentRoute.navigationController!
+                /**
+                *  Fetch the parentRoute's navigationController. This will throw an error if the navigationController is not set
+                */
+                guard let navigationController = parentRoute.navigationController else{
+                    throw RouteErrors.SubRoutesOnNonNavigationController
+                }
                 
                 /**
                 *  Navigate to the specified parent ViewController
                 */
                 goToViewController(navigationController, controller: controller, animated: animated)
    
+                /**
+                *  If the previousParentRoute is not equal to the current parent route,
+                */
                 if(previousParentName != parentRouteName){
-                    try compareRoutes(currentNavigationController, routeName: parentRouteName, previousRouteName: previousParentName, animated: animated, dismissPrevious: dismissPrevious)
+                    try navigateToRoute(currentNavigationController, routeName: parentRouteName, previousRouteName: previousParentName, route: parentRoute, animated: animated, dismissPrevious: dismissPrevious)
                 }
                 
                 
@@ -108,31 +143,38 @@ func compareRoutes(currentNavigationController: UINavigationController, routeNam
             /**
             *  Navigate to the specified viewController
             */
-            goToViewController(navigationController, controller: controller, animated: animated, dismissPrevious: dismissPrevious)
+            goToViewController(currentNavigationController, controller: controller, animated: animated, dismissPrevious: dismissPrevious)
         }
-        
-        return controller
     }catch{
         throw RouteErrors.SubRoutesOnNonNavigationController
     }
     
 }
 
+/**
+ Will navigate to the specified controller on the given navigation controller.
+ The optionals will specify whether to animate and whether to dismiss previous controllers on the stack
+ 
+ - parameter navigationController: The navigationController to push the view controller on
+ - parameter controller:           The ViewController to push onto the stack
+ - parameter animated:             Whether to animate
+ - parameter dismissPrevious:      Whether to dismiss previous viewControllers from the stack
+ */
 func goToViewController(navigationController: UINavigationController, controller: UIViewController, animated: Bool = false, dismissPrevious: Bool = false){
     
     /**
     *  Dismiss Previous ViewController if dissmissPrevious is set
     */
     if(dismissPrevious){
-        //navigationController.viewControllers = navigationController.viewControllers.reverse()
-        navigationController.viewControllers.forEach{viewController in
-            viewController.view.removeFromSuperview()
-            viewController.removeFromParentViewController()
-        }
+        /**
+        *  Will remove all previous viewControllers and set the new stack to the specified controller
+        */
         navigationController.setViewControllers([controller], animated: animated)
     }else{
         
-        // Show the view controller
+        /**
+        *  Will push the specified controller on the stack
+        */
         navigationController.pushViewController(controller, animated: animated)
     }
 }
