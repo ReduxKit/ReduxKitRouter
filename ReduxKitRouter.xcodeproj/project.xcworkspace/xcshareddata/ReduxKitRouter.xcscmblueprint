@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "E4EFEF549E0E7B220AF7B308F4E6ED000D622A2D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E4EFEF549E0E7B220AF7B308F4E6ED000D622A2D" : 0,
+    "D16BAEAEF49EC2278C56F7DBC376A6C8609D1DB0" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "B313CA27-3499-4F09-B650-D9112ED1CEC0",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E4EFEF549E0E7B220AF7B308F4E6ED000D622A2D" : "ReduxKitRouter\/",
+    "D16BAEAEF49EC2278C56F7DBC376A6C8609D1DB0" : "ReduxKitBond\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ReduxKitRouter",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ReduxKitRouter.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ReduxKit\/ReduxKitBond.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D16BAEAEF49EC2278C56F7DBC376A6C8609D1DB0"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ReduxKit\/ReduxKitRouter.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E4EFEF549E0E7B220AF7B308F4E6ED000D622A2D"
+    }
+  ]
+}

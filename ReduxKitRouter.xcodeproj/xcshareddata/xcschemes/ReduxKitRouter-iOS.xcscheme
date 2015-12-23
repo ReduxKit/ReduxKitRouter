@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BCA3175B1C03621C00C614A2"
-               BuildableName = "ReduxSwiftRouter.framework"
-               BlueprintName = "ReduxSwiftRouter"
-               ReferencedContainer = "container:ReduxSwiftRouter.xcodeproj">
+               BuildableName = "ReduxKitRouter.framework"
+               BlueprintName = "ReduxKitRouter-iOS"
+               ReferencedContainer = "container:ReduxKitRouter.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BCA317651C03621C00C614A2"
-               BuildableName = "ReduxSwiftRouterTests.xctest"
-               BlueprintName = "ReduxSwiftRouterTests"
-               ReferencedContainer = "container:ReduxSwiftRouter.xcodeproj">
+               BuildableName = "ReduxKitRouter-iOSTests.xctest"
+               BlueprintName = "ReduxKitRouter-iOSTests"
+               ReferencedContainer = "container:ReduxKitRouter.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BCA3175B1C03621C00C614A2"
-            BuildableName = "ReduxSwiftRouter.framework"
-            BlueprintName = "ReduxSwiftRouter"
-            ReferencedContainer = "container:ReduxSwiftRouter.xcodeproj">
+            BuildableName = "ReduxKitRouter.framework"
+            BlueprintName = "ReduxKitRouter-iOS"
+            ReferencedContainer = "container:ReduxKitRouter.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -65,9 +65,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BCA3175B1C03621C00C614A2"
-            BuildableName = "ReduxSwiftRouter.framework"
-            BlueprintName = "ReduxSwiftRouter"
-            ReferencedContainer = "container:ReduxSwiftRouter.xcodeproj">
+            BuildableName = "ReduxKitRouter.framework"
+            BlueprintName = "ReduxKitRouter-iOS"
+            ReferencedContainer = "container:ReduxKitRouter.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -83,9 +83,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BCA3175B1C03621C00C614A2"
-            BuildableName = "ReduxSwiftRouter.framework"
-            BlueprintName = "ReduxSwiftRouter"
-            ReferencedContainer = "container:ReduxSwiftRouter.xcodeproj">
+            BuildableName = "ReduxKitRouter.framework"
+            BlueprintName = "ReduxKitRouter-iOS"
+            ReferencedContainer = "container:ReduxKitRouter.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

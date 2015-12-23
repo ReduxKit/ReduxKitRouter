@@ -1,6 +1,6 @@
 //
 //  RouteSpec.swift
-//  ReduxSwiftRouter
+//  ReduxKitRouter
 //
 //  Created by Aleksander Herforth Rendtslev on 24/11/15.
 //  Copyright © 2015 Kare Media. All rights reserved.
@@ -10,38 +10,23 @@
 import Quick
 import Nimble
 import RxSwift
-import SwiftRedux
-@testable import ReduxSwiftRouter
+import ReduxKit
+@testable import ReduxKitRouter
 
 
 class RouteSpec: QuickSpec {
-    
-    
-    override func spec(){
+    override func spec() {
         //var defaultState: AppState!
-        
-        describe("RouteSpec"){
-            
-            beforeEach{
+        describe("RouteSpec") {
+            beforeEach {
             }
-            
-            
-            it(""){
-              
-                
-
-                
+            it("") {
             }
         }
     }
-    
 }
 
-enum RouteMap{
+enum RouteMap {
     case Container
     case Scanner
-    
 }
-
-
-
