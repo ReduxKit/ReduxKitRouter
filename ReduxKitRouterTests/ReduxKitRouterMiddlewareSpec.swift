@@ -9,7 +9,6 @@
 
 import Quick
 import Nimble
-import RxSwift
 import ReduxKit
 @testable import ReduxKitRouter
 
