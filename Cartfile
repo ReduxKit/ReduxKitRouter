@@ -1,2 +1,1 @@
-github "ReactiveX/RxSwift" ~> 2.0
 github "ReduxKit/ReduxKit" ~> 0.1
